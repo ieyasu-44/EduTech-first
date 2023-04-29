@@ -1,0 +1,51 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>EduViz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>EduViz</h1>
+    <h2>科目ごとの勉強時間</h2>
+    <form action="/" method="post">
+        <label for="subject">科目:</label>
+        <select name="subject" id="subject" required>
+            <option value="英語">英語</option>
+            <option value="数学">数学</option>
+            <option value="国語">国語</option>
+            <option value="理科">理科</option>
+            <option value="社会">社会</option>
+        </select>
+        <br>
+        <label for="time">勉強時間（分）:</label>
+        <input type="number" name="time" id="time" required>
+        <br>
+        <input type="submit" value="登録">
+    </form>
+
+    {% if study_data %}
+    <h2>科目ごとの勉強時間</h2>
+    <table>
+        <tr>
+            <th>科目</th>
+            <th>勉強時間（分）</th>
+        </tr>
+        {% for data in study_data %}
+        <tr>
+            <td>{{ data[0] }}</td>
+            <td>{{ data[1] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <form action="/results">
+        <input type="submit" value="円グラフを表示する">
+    </form>
+    {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
